@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Raices-control </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body {
+        background-color: #141526;
+      }
+
+      h1, h2, h3 {
+        background-color: rgb(20,21,38);
+        color: white;
+        padding: 10px;
+      }
+      
+      #rangevalue_t{
+        font-size:5vw;
+        color: white;
+      }
+      #rangevalue_h{
+        font-size:5vw;
+        color: white;
+      }
+
+      .pollo {
+        position: relative;
+        display: inline-block;
+        width: 60px;
+        height: 34px;
+        background-color: #ccc;
+        border-radius: 34px;
+      }
+
+      .vivo .pollo {
+        background-color: #2196f3;
+      }
+
+      .pollo:hover {
+        background-color: #072a46;
+      }
+
+      .huevo {
+        position: absolute;
+        content: "T";
+        height: 26px;
+        width: 26px;
+        left: 4px;
+        bottom: 4px;
+        border-radius: 34px;
+        background-color: white;
+      }
+
+      .vivo .huevo {
+        left: 28px;
+      }
+
+      input {
+        margin: 0.4rem;
+      }
+
+      input[type="range"] {
+        -webkit-appearance: none;
+        width: 200px;
+        height: 10px;
+        border-radius: 5px;
+        background-image: linear-gradient(#71b9f4, #2196f3);
+        background-repeat: no-repeat;
+      }
+     .barraTemp{
+            height: 200px;
+            width: 200px;
+            margin: auto;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+        .cont{
+            height: 100px;
+            width: 200px;
+        }
+        .circulo_centro {
+            width: 150px;
+            height: 150px;
+            background-color: rgb(20,21,38);
+            border-radius: 50%;
+            margin: auto;
+            position: relative;
+            margin: -175px auto 50px;
+        }
+        .rectangulo{
+            width: 200px;
+            height: 100px;
+            background-color: rgb(20,21,38);
+            position: relative;
+            margin: -125px auto 50px;
+        }
+    </style>
+  </head>
+
+  <body>
+    <center>
+      <h1>Raices Control</h1>
+      
+      <h3>Rele_0</h3>
+      <div id="botonRele_0" class="vivo">
+        <span class="pollo">
+          <span class="huevo"></span>
+        </span>
+      </div>
+
+       <h3>Rele_1</h3>
+      <div id="botonRele_1" class="vivo">
+        <span class="pollo">
+          <span class="huevo"></span>
+        </span>
+      </div>
+
+       <h3>Tempe Max</h3>
+      <output id="rangevalue_t">50</output><br>
+      <input type="range" value="50" min="0" max="255" id="rangeNivel_t" oninput="rangevalue_t.value=value">
+     
+      <h3>Hume Max</h3>
+      <output id="rangevalue_h">50</output><br>
+      <input type="range" value="50" min="0" max="255" id="rangeNivel_h" oninput="rangevalue_h.value=value">
+       
+       <h1>PH</h1>
+         <div class="barraTemp" style="transform: rotate(30deg);">
+         <div class="cont" style="background-color: rgb(143, 136, 136);"></div>
+         <div class="cont" style="background-color: rgb(243,242,5);"></div>   
+
+      </div>
+    <div class="circulo_centro"></div>
+    <div class="rectangulo"></div>
+    <h1 style="font-size: 22px; position: relative; margin: -125px auto 50px;">6.00</h1>
+      <h1>Temperatura</h1>
+         <div class="barraTemp" style="transform: rotate(30deg);">
+         <div class="cont" style="background-color: rgb(143, 136, 136);"></div>
+         <div class="cont" style="background-color: rgb(253,0,0);"></div>   
+
+      </div>
+   
+    <div class="circulo_centro"></div>
+    <div class="rectangulo"></div>
+    <h1 style="font-size: 22px; position: relative; margin: -125px auto 50px;">20.9 °C</h1>
+
+    <h1>Humedad</h1>
+    <div class="barraTemp" style="transform: rotate(120deg);">
+         <div class="cont" style="background-color: rgb(143, 136, 136);"></div>
+         <div class="cont" style="background-color: rgb(5,175,242);"></div>   
+
+    </div>
+    <div class="circulo_centro"></div>
+    <div class="rectangulo"></div>
+    <h1 style="font-size: 22px; position: relative; margin: -125px auto 50px;">65.0 %</h1>
+
+ 
+    </center>
+
+    <script>
+ 
+      const elementoRele_0 = document.getElementById("botonRele_0");
+      const elementoRele_1 = document.getElementById("botonRele_1");
+      const elementoTempe = document.getElementById("rangeNivel_t");
+      const elementoHume = document.getElementById("rangeNivel_h");
+
+      elementoRele_0.addEventListener("click", cambiarRele_0);
+      elementoRele_1.addEventListener("click", cambiarRele_1);
+      elementoTempe .addEventListener("click", cambiarNivel_t);
+      elementoHume .addEventListener("click", cambiarNivel_h);
+     
+      function cambiarRele_0(){
+        const elementoRele_0 = document.getElementById("botonRele_0");
+
+        if(elementoRele_0.className == "vivo"){
+          elementoRele_0.className = "muerto";
+        } else{
+          elementoRele_0.className = "vivo";
+        }
+        console.log("Cambiando boton a " + elementoRele_0.className)
+        consultaGET(elementoRele_0.className);
+      };
+
+      
+      function cambiarRele_1(){
+        const elementoRele_1 = document.getElementById("botonRele_1");
+
+        if(elementoRele_1.className == "vivo"){
+          elementoRele_1.className = "muerto";
+        } else{
+          elementoRele_1.className = "vivo";
+        }
+        console.log("Cambiando boton a " + elementoRele_1.className)
+        consultaGET( elementoRele_1.className);
+      };
+
+      function cambiarNivel_t(){
+        const elementoNivel_t = document.getElementById("TempeNivel_t");
+        console.log("Cambiando nivel a " + elementoNivel_t.value);
+        consultaGET("Nivel_t?valor=" +  elementoNivel_t.value);
+      }
+
+
+      function cambiarNivel_h(){
+        const elementoNivel_h = document.getElementById("HumeNivel_h");
+        console.log("Cambiando nivel a " + elementoNivel_t.value);
+        consultaGET("Nivel_h?valor=" +  elementoNivel_t.value);
+      }
+
+      function consultaGET(consulta){
+        const Http = new XMLHttpRequest();
+        console.log(`Consultando  ${consulta}`)
+        Http.open("GET", consulta);
+        Http.send();
+
+        Http.onreadystatechange = (e) => {
+          console.log(Http.status );
+          console.log(Http.responseText);
+        };
+      };
+    </script>
+  </body>
+</html>
